@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul">
+<window title="Critera" hflex="1" vflex="1" >
+    <hbox pack="center" align="center">
+        <label id="lblImprint">Imprint</label><textbox id="txtImprint" name="splimprint" value=""/>
+        <label id="lblName">Name</label><textbox id="txtName" name="splname" value=""/>
+        <button label="Search" onClick=""></button>
+    </hbox>
+</window>
+</zk>
