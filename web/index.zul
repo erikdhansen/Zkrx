@@ -43,8 +43,8 @@ Copyright (C) 2006 Potix Corporation. All Rights Reserved.
         font-weight : bold;
         }        
     </style>
-    <div width="600px">
-        <groupbox width="560px">
+    <div width="100%">
+        <groupbox width="93%">
             <caption label="ZkRx Demo Application"/>
             <hlayout spacing="30px" style="padding-left: 10px;">
                 <image src="images/white_pill.jpg"/>
@@ -62,7 +62,7 @@ Copyright (C) 2006 Potix Corporation. All Rights Reserved.
                                         <radio label="OR" checked="true"/>
 		       </radiogroup>
                         <label value="Description"/>
-                        <textbox value="" width="240px"/>
+                        <hbox spacing="5px" pack="center" align="end"><textbox value="" width="240px"/></hbox>
                     </hlayout>
                     <hbox spacing="30px" style="align: end;">
                         <label width="100%"/>
@@ -74,7 +74,7 @@ Copyright (C) 2006 Potix Corporation. All Rights Reserved.
                     <listbox id="listResults" width="100%" height="100%"
                              onSelect="">
                         <listhead>
-                            <listheader label="Image"/>
+                            <listheader width="200px" label="Image"/>
                             <listheader label="Description"/>
                         </listhead>
                         <listitem>
