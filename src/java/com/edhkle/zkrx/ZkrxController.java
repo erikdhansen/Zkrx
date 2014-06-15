@@ -16,6 +16,7 @@ import org.zkoss.zul.Textbox;
 import com.edhkle.pocketrx.controller.Pharmacist;
 import com.edhkle.pocketrx.model.Pill;
 import java.util.Collection;
+import org.zkoss.zul.Listbox;
 
 /**
  *
@@ -29,15 +30,16 @@ public class ZkrxController extends SelectorComposer {
     Textbox description;
     @Wire
     Radiogroup andOr;
+    @Wire
+    Listbox pillList;
     
-    private PillsVM pillViewModel = new PillsVM();
-            
+    PillsVM pillsViewModel = new PillsVM();
     String JDBC_URL = "jdbc:mysql://pillbox:p1llb0x@localhost:3306/pillbox?zeroDateTime=convertToNull";
     
     @Listen("onClick=#search")
     public void search(MouseEvent event) {
         log.info("search(imprint=" + imprint.getValue() + " join=" + andOr.getSelectedItem().getValue() + " description=" + description.getValue());
-        pillViewModel.clear();
+        
         Pharmacist rx = Pharmacist.getPharmacist(JDBC_URL);
         String[] bits = imprint.getValue().split(" ");
         StringBuilder sb = new StringBuilder("%");
@@ -46,19 +48,12 @@ public class ZkrxController extends SelectorComposer {
         }
         try {
             Collection<Pill> pills = rx.getPillsWithImprint(sb.toString());
-            log.info("RxSearch: found " + pills.size() + " pill records");
-            pillViewModel.addAllPills(pills);
+            pillsViewModel.setPills(pills);
+            pillList.setModel(pillsViewModel);
+            log.info("Search results loaded into pillViewModel[" + pills.size() + " records]");
         } catch (Exception e) {
             log.severe(e.getMessage());
             e.printStackTrace();
         }
-    }
-    
-    public void setPillViewModel(PillsVM pillViewModel) {
-        this.pillViewModel = pillViewModel;
-    }
-    
-    public PillsVM getPillViewModel() {
-        return pillViewModel;
     }
 }

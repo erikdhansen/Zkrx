@@ -7,42 +7,44 @@
 package com.edhkle.zkrx;
 
 import com.edhkle.pocketrx.model.Pill;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Logger;
-import org.zkoss.bind.annotation.Command;
-import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zul.AbstractListModel;
 
 /**
  *
  * @author ehansen
  */
-public class PillsVM {
+public class PillsVM extends AbstractListModel<Pill> {
     final static Logger log = Logger.getLogger(PillsVM.class.getName());
-    protected Collection<Pill> pills = new LinkedList<Pill>();
+    protected List<Pill> pills = new ArrayList<Pill>();
     private Pill selectedPill = null;
     
     public PillsVM() {
     }
     
-    @Command @NotifyChange("pills")
-    public void addAllPills(Collection<Pill> pillCollection) {
-        log.info("Received collection of pills to render [ " + pillCollection.size() + " items]");
-        for(Pill p : pillCollection) {
-            log.info("Created new Pill View Model for: " + p.getMedicineName());
-            pills.add(p);
-        }
-        log.info("Created new PillsListVM view model with " + pills.size() + " pills in list");
+    public List<Pill> getPills() {
+        return pills;
     }
     
-    @Command @NotifyChange("pills")
+    public void setPills(Collection<Pill> newPills) {
+        if(pills == null) {
+            // Shouldn't happen
+            log.warning("How did we get a null pill list?");
+            pills = new ArrayList<Pill>();
+        }
+        pills.clear();
+        pills.addAll(newPills);
+    }
+    
     public void setSelectedPill(Pill p) {
         selectedPill = p;
         // I think I need to fire pillSelected here...
         log.info("setSelectedPill(" + p.getSetId() + ")");
     }
     
-    @Command @NotifyChange("pills")
     public void clear() {
         pills.clear();
     }
@@ -53,5 +55,16 @@ public class PillsVM {
     
     public void pillSelected(Pill p) {
         log.info("!!! PILL SELECTED IN LIST !!! Pill: " + p.toString());
+    }
+    
+    @Override
+    public int getSize() {
+        return pills.size();
+        
+    }
+
+    @Override
+    public Pill getElementAt(int i) {
+        return pills.get(i);
     }
 }

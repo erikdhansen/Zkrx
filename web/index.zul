@@ -26,9 +26,7 @@
     </style>
     <div width="100%">
         <window title="ZK Framework Demo Application" 
-                apply="com.edhkle.zkrx.ZkrxController"
-                id="win"
-                viewModel="@id('vm') @init('com.edhkle.zkrx.PillsVM')">
+                apply="com.edhkle.zkrx.ZkrxController">
         <groupbox width="93%">
             <caption label="ZkRx"/>
             <hlayout spacing="30px" style="padding-left: 10px;">
@@ -53,18 +51,16 @@
                 </groupbox>
                 <groupbox mold="default" width="100%">
                     <caption image="images/pills-3-32.png" label="Results"/>
-                    <listbox id="listResults" width="100%" height="100%"
-                             emptyMessage="No results available"
-                             model="@bind(vm.pills)" 
-                             selectedItem="@bind(vm.selectedPill)">
+                    <listbox id="pillList" width="100%" height="100%"
+                             emptyMessage="No results available">
                         <listhead>
                             <listheader width="200px" label="Image"/>
                             <listheader label="Description"/>
                         </listhead>
                         <template name="model" var="p">                        
-                            <listitem value="@bind(p.setId)">
-                                <listcell image="@bind(p.imagePath)"/>
-                                <listcell label="@bind(p.medicineName)"/>
+                            <listitem value="${each.setId}">
+                                <listcell image="${each.imagePath}"/>
+                                <listcell label="${each.medicineName}"/>
                             </listitem>
                         </template>
                     </listbox>
