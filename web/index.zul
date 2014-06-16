@@ -55,12 +55,16 @@
                              emptyMessage="No results available">
                         <listhead>
                             <listheader width="200px" label="Image"/>
+                            <listheader label="Medicine"/>
                             <listheader label="Description"/>
+                            <listheader label="Manufacturer"/>
                         </listhead>
                         <template name="model" var="p">                        
                             <listitem value="${each.setId}">
                                 <listcell image="${each.imagePath}"/>
                                 <listcell label="${each.medicineName}"/>
+                                <listcell label="${each.rxString}"/>
+                                <listcell label="${each.author}"/>
                             </listitem>
                         </template>
                     </listbox>
