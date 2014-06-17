@@ -56,6 +56,7 @@
                         <listhead>
                             <listheader width="200px" label="Image"/>
                             <listheader label="Medicine"/>
+                            <listheader label="Imprint"/>
                             <listheader label="Description"/>
                             <listheader label="Manufacturer"/>
                         </listhead>
@@ -63,6 +64,7 @@
                             <listitem value="${each.setId}">
                                 <listcell image="${each.imagePath}"/>
                                 <listcell label="${each.medicineName}"/>
+                                <listcell label="${each.SPLimprint}"/>
                                 <listcell label="${each.rxString}"/>
                                 <listcell label="${each.author}"/>
                             </listitem>
