@@ -16,6 +16,8 @@ import org.zkoss.zul.Textbox;
 import com.edhkle.pocketrx.controller.Pharmacist;
 import com.edhkle.pocketrx.model.Pill;
 import java.util.Collection;
+import java.util.Set;
+import org.zkoss.zk.ui.event.SelectEvent;
 import org.zkoss.zul.Listbox;
 
 /**
@@ -41,13 +43,9 @@ public class ZkrxController extends SelectorComposer {
         log.info("search(imprint=" + imprint.getValue() + " join=" + andOr.getSelectedItem().getValue() + " description=" + description.getValue());
         
         Pharmacist rx = Pharmacist.getPharmacist(JDBC_URL);
-        String[] bits = imprint.getValue().split(" ");
-        StringBuilder sb = new StringBuilder("%");
-        for(String  b : bits) {
-            sb.append(b).append("%");
-        }
+        String searchString = imprint.getValue().replace(" ", ";");
         try {
-            Collection<Pill> pills = rx.getPillsWithImprint(sb.toString());
+            Collection<Pill> pills = rx.getPillsWithImprint(searchString);
             pillsViewModel.setPills(pills);
             pillList.setModel(pillsViewModel);
             log.info("Search results loaded into pillViewModel[" + pills.size() + " records]");
@@ -55,5 +53,18 @@ public class ZkrxController extends SelectorComposer {
             log.severe(e.getMessage());
             e.printStackTrace();
         }
+    }
+    
+    @Listen("onSelect=#pillList")
+    public void pillSelected(SelectEvent e) {
+        log.info("ZkrxController received SelectEvent (" + e.toString() + " from ListBox(pillList)");
+        Set selected = e.getSelectedItems();
+        log.info("Selected set size=" + selected.size() + " items");
+        Pill p = (Pill)e.getSelectedObjects().iterator().next();
+        log.info("Selected pill is: " + p.toString());
+//        Window pillWindow = (Window)Executions.createComponents("pillview.zul", null, null);
+//        pillWindow.setTitle("Medication Information: " + p.getMedicineName());
+//        pillWindow.
+//        pillWindow.doModal();
     }
 }

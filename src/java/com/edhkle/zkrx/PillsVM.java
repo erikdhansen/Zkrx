@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.logging.Logger;
+import org.zkoss.bind.annotation.Command;
 import org.zkoss.zul.AbstractListModel;
 
 /**
@@ -39,10 +40,11 @@ public class PillsVM extends AbstractListModel<Pill> {
         pills.addAll(newPills);
     }
     
-    public void setSelectedPill(Pill p) {
+    @Command
+    public void setSelected(Pill p) {
         selectedPill = p;
         // I think I need to fire pillSelected here...
-        log.info("setSelectedPill(" + p.getSetId() + ")");
+        log.info("setSelectedPill(" + p.toString() + ")");
     }
     
     public void clear() {

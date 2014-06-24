@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul">
+    <window id="pillModal" border="normal" position="center,center" 
+            closable="true" action="show: slideDown;hide: slideUp"
+            apply="com.edhkle.zkrx.PillViewController">
+        <vlayout>
+            <hbox><image id="pillImage" width="128"  height="128"/><label id="rxString"/></hbox>
+            <hbox><label value="Imprint(s)"/><label id="imprint"/></hbox>
+            <hbox><label value="Medicine Name"/><label id="medicineName"/></hbox>
+            <hbox><label value="Ingredients"/><label id="ingredients"/></hbox> 
+            <hbox><label value="Medication Type"/><label id="medType"/></hbox> 
+            <hbox><label value="Author"/><label id="author"/></hbox>
+            <button id="closeButton" label="Close" autodisable="self"/>            
+        </vlayout>
+    </window>
+</zk>
