@@ -16,9 +16,14 @@ import org.zkoss.zul.Textbox;
 import com.edhkle.pocketrx.controller.Pharmacist;
 import com.edhkle.pocketrx.model.Pill;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.SelectEvent;
+import org.zkoss.zk.ui.util.Composer;
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Window;
 
 /**
  *
@@ -34,6 +39,8 @@ public class ZkrxController extends SelectorComposer {
     Radiogroup andOr;
     @Wire
     Listbox pillList;
+
+
     
     PillsVM pillsViewModel = new PillsVM();
     String JDBC_URL = "jdbc:mysql://pillbox:p1llb0x@localhost:3306/pillbox?zeroDateTime=convertToNull";
@@ -57,14 +64,13 @@ public class ZkrxController extends SelectorComposer {
     
     @Listen("onSelect=#pillList")
     public void pillSelected(SelectEvent e) {
-        log.info("ZkrxController received SelectEvent (" + e.toString() + " from ListBox(pillList)");
         Set selected = e.getSelectedItems();
         log.info("Selected set size=" + selected.size() + " items");
         Pill p = (Pill)e.getSelectedObjects().iterator().next();
-        log.info("Selected pill is: " + p.toString());
-//        Window pillWindow = (Window)Executions.createComponents("pillview.zul", null, null);
-//        pillWindow.setTitle("Medication Information: " + p.getMedicineName());
-//        pillWindow.
-//        pillWindow.doModal();
-    }
+        Map<String,Pill> m = new HashMap<String,Pill>();
+        m.put("selectedPill", p);
+        Window pillWindow = (Window)Executions.createComponents("pillview.zul", null, m);
+        pillWindow.setTitle(p.getMedicineName() + ": " + p.getAuthor());
+        pillWindow.doModal();
+    }    
 }

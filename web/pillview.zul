@@ -2,16 +2,33 @@
 
 <zk xmlns="http://www.zkoss.org/2005/zul">
     <window id="pillModal" border="normal" position="center,center" 
-            closable="true" action="show: slideDown;hide: slideUp"
-            apply="com.edhkle.zkrx.PillViewController">
+            closable="true" action="show: slideIn({duration: 1000});hide: slideOut({duration: 1000})"
+            apply="com.edhkle.zkrx.PillViewController"
+            width="33%">
         <vlayout>
-            <hbox><image id="pillImage" width="128"  height="128"/><label id="rxString"/></hbox>
-            <hbox><label value="Imprint(s)"/><label id="imprint"/></hbox>
-            <hbox><label value="Medicine Name"/><label id="medicineName"/></hbox>
-            <hbox><label value="Ingredients"/><label id="ingredients"/></hbox> 
-            <hbox><label value="Medication Type"/><label id="medType"/></hbox> 
-            <hbox><label value="Author"/><label id="author"/></hbox>
-            <button id="closeButton" label="Close" autodisable="self"/>            
+            <hbox><image id="pmPillImage"
+                         border="1"
+                         width="128" 
+                         src="/images/thumbnails/no_pill_image.jpg"
+                         height="128"/>
+            <label id="pmRxString"/>
+            </hbox>
+            <grid>
+                <columns sizable="false">
+                    <column/>
+                    <column/>
+                </columns>
+                    <rows>
+                        <row><label hflex="1" value="Imprint(s)"/><label hflex="1" id="pmImprint"/></row>
+                        <row><label hflex="1" value="Medicine Name"/><label hflex="1" id="pmMedicineName"/></row>
+                        <row><label hflex="1" value="Author"/><label hflex="1" id="pmAuthor"/></row>
+                        <row><label hflex="1" value="Medication Type"/><label hflex="1" id="pmMedType"/></row>
+                        <row spans="2"><label hflex="1" value="Ingredients"/></row>
+                        <row><label value="Active"/><label value="Inactive"/></row>
+                        <row><label id="pmIngredients"/><label id="pmInactiveIngredients"/></row>
+                    </rows>
+            </grid>
+            <hbox width="100%" align="center" pack="end"><button id="closeButton" label="Close" autodisable="self"/></hbox>            
         </vlayout>
     </window>
 </zk>
